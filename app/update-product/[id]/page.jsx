@@ -6,24 +6,6 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 
 export default function EditProduct() {
-	const { id } = useParams();
-
-	async function getSingleProduct(id) {
-		const singleProduct = await axios.get(
-			`http://localhost:8000/api/v1/single-product/${id}`
-		);
-		console.log(singleProduct.data);
-		// setProduct({
-		// 	pName: singleProduct.data.pName,
-		// 	description: singleProduct.data.description,
-		// 	price: singleProduct.data.price,
-		// 	category: singleProduct.data.category,
-		// });
-	}
-	useEffect(() => {
-		getSingleProduct(id);
-	}, []);
-
 	const [productData, setProduct] = useState({
 		title: "",
 		description: "",
@@ -31,6 +13,24 @@ export default function EditProduct() {
 		brand: "",
 		imageURL: "",
 	});
+	const { id } = useParams();
+
+	async function getSingleProduct(id) {
+		const singleProduct = await axios.get(
+			`http://localhost:8000/api/v1/single-product/${id}`
+		);
+		console.log(singleProduct.data);
+		setProduct({
+			title: singleProduct.data.title,
+			description: singleProduct.data.description,
+			price: singleProduct.data.price,
+			brand: singleProduct.data.brand,
+			imageURL: singleProduct.data.imageURL,
+		});
+	}
+	useEffect(() => {
+		getSingleProduct(id);
+	}, []);
 
 	const changeHandler = (e) => {
 		const name = e.target.name;
@@ -39,7 +39,7 @@ export default function EditProduct() {
 	};
 	async function EditProductData(id) {
 		await axios
-			.patch(`http://localhost:5001/update/${id}`, productData)
+			.patch(`http://localhost:8000/api/v1/update-product/${id}`, productData)
 			.then(console.log("Product has been Updated"));
 	}
 
@@ -123,7 +123,7 @@ export default function EditProduct() {
 				<button
 					type="submit"
 					className="p-2 border bg-gray-500 rounded-lg cursor-pointer active:bg-gray-600">
-					Create Product
+					Update Product
 				</button>
 			</form>
 		</>

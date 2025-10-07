@@ -101,7 +101,7 @@ export default function page() {
 									}}>
 									Delete
 								</button>
-								<Link href={`/update-product`}>
+								<Link href={`/update-product/${myData._id}`}>
 									<button
 										type="button"
 										className="block w-full rounded-md bg-gray-900 px-4 py-3 text-sm font-medium text-white transition hover:scale-105">
