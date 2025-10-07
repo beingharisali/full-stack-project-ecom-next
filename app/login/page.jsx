@@ -17,7 +17,10 @@ export default function Home() {
   async function submitHandler(e) {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/api/v1/login", user);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/login`,
+        user
+      );
       console.log(res);
       setUser({
         email: "",
