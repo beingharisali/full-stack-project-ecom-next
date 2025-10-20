@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -9,6 +10,7 @@ export default function Home() {
     email: "",
     password: "",
   });
+  const router = useRouter()
   function changeHandler(e) {
     const name = e.target.name;
     const value = e.target.value;
@@ -22,6 +24,7 @@ export default function Home() {
         user
       );
       console.log(res);
+      router.push('/admin/products')
       setUser({
         email: "",
         password: "",
